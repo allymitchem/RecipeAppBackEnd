@@ -7,6 +7,7 @@ async function dropTables(){
 
         await client.query(`
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS pantry;
         `)
         console.log("Finished Dropping All Tables...");
     } catch(error){
@@ -26,8 +27,15 @@ async function createTables(){
             unit VARCHAR(255)
             
         );
+
+        CREATE TABLE pantry(
+            id SERIAL PRIMARY KEY,
+            
+            "ingredientId" INTEGER references ingredients(id)
+        );
         `)
-        //"recipeId" INTEGER references recipes(id)
+        //"recipeId" INTEGER references recipes(id) **for ingredients table
+        //"userId" VARCHAR(255) references users(id) ** for pantry table
         console.log("Finished building tables!")
     } catch(error){
         console.log("Error building tables!")
