@@ -16,8 +16,8 @@ async function createPantry(userId){
 
 }
 /* adding ingredients to pantry, quantity is optional */
-async function addIngredientToPantry(){
-    try{
+async function addIngredientToPantry({ingredientId, pantryId, quantity}){
+    try {
         const {rows:[pantryItem]} = await client.query(`
         INSERT INTO pantry("ingredientId", "pantryId", quantity)
         VALUES ($1, $2, $3)
@@ -28,6 +28,18 @@ async function addIngredientToPantry(){
         console.error(error)
     }
 }
+
+/* removing ingredients from the pantry */
+// async function deleteIngredientFromPantry(pantryIngredientId){
+//     try {
+//         const {rows: [deletedIngredient]} = await client.query(`
+//         DELETE FROM pantry
+//         `)
+
+//     }
+// }
+    
+
 
 module.exports= {
 createPantry,
