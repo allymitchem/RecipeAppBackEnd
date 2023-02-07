@@ -15,6 +15,20 @@ async function createPantry(userId){
     }
 
 }
+/* adding ingredients to pantry, quantity is optional */
+async function addIngredientToPantry(){
+    try{
+        const {rows:[pantryItem]} = await client.query(`
+        INSERT INTO pantry("ingredientId", "pantryId", quantity)
+        VALUES ($1, $2, $3)
+        RETURNING *
+        ;`, [ingredientId, pantryId, quantity])
+        return pantryItem
+    } catch(error){
+        console.error(error)
+    }
+}
 
-
-module.exports= {createPantry}
+module.exports= {
+createPantry,
+addIngredientToPantry}

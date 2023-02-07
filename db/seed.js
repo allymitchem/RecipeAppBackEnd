@@ -1,5 +1,5 @@
 const client = require('./client');
-
+const {createPantry,addIngredientToPantry} = require('./');
 
 async function dropTables(){
     try{
@@ -31,7 +31,8 @@ async function createTables(){
         CREATE TABLE pantry(
             id SERIAL PRIMARY KEY,
             
-            "ingredientId" INTEGER references ingredients(id)
+            "ingredientId" INTEGER references ingredients(id),
+            quantity INTEGER
         );
         `)
         //"recipeId" INTEGER references recipes(id) **for ingredients table
