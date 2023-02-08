@@ -6,6 +6,7 @@ async function dropTables(){
         console.log("Dropping All Tables...")
 
         await client.query(`
+        DROP TABLE IF EXISTS favorites;
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS pantry;
@@ -54,6 +55,12 @@ async function createTables(){
             "mealType" VARCHAR(255),
             cuisine VARCHAR(255),
             "createdBy" INTEGER REFERENCES users(id)
+        );
+
+        CREATE TABLE favorites (
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "recipeId" INTEGER REFERENCES recipes(id)
         );
             `)
             //"recipeId" INTEGER references recipes(id) **for ingredients table
