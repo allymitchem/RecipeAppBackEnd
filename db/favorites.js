@@ -30,7 +30,21 @@ async function addFavorite(userId){
     }
 }
 
+async function removeFavorite(userId){
+    try{
+        const {rows: [favorite]} = await client.query(`
+        UPDATE favorites
+        SET status = false
+        WHERE "userId" =$1
+        ;`, [userId])
+        return favorite
+    }catch(error){
+        console.error(error)
+    }
+}
+
 module.exports = {
     getFavorites,
-    addFavorite
+    addFavorite,
+    removeFavorite
 }
