@@ -10,13 +10,27 @@ try {
     FROM favorites
     WHERE status = true
     AND "userId"=$1
-    `, [userId])
+    ;`, [userId])
     return favorites
     }catch (error){
         console.error(error)
     }
 }
 
+async function addFavorite(userId){
+    try{
+        const {rows: [favorite]} = await client.query(`
+        UPDATE favorites
+        SET status = true
+        WHERE "userId" =$1
+        ;`, [userId])
+        return favorite
+    }catch(error){
+        console.error(error)
+    }
+}
+
 module.exports = {
-    getFavorites
+    getFavorites,
+    addFavorite
 }
