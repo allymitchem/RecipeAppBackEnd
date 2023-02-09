@@ -1,5 +1,5 @@
 const client = require('./client');
-const {createPantry,addIngredientToPantry} = require('./');
+const {createPantry,addIngredientToPantry, getFavorites} = require('./');
 
 async function dropTables(){
     try{
@@ -7,9 +7,9 @@ async function dropTables(){
 
         await client.query(`
         DROP TABLE IF EXISTS favorites;
-        DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS pantry;
+        DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS ingredients;
         `)
         console.log("Finished Dropping All Tables...");
@@ -23,20 +23,9 @@ async function createTables(){
         console.log("Starting To Build Tables...")
 
         await client.query(`
-        CREATE TABLE ingredients(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            quantity VARCHAR(255) NOT NULL,
-            unit VARCHAR(255)
-            
-        );
+       
 
-        CREATE TABLE pantry(
-            id SERIAL PRIMARY KEY,
-            
-            "ingredientId" INTEGER references ingredients(id),
-            quantity INTEGER
-        );
+       
         
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -57,10 +46,27 @@ async function createTables(){
             "createdBy" INTEGER REFERENCES users(id)
         );
 
+        CREATE TABLE ingredients(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            quantity VARCHAR(255) NOT NULL,
+            unit VARCHAR(255),
+            "recipeId" INTEGER references recipes(id)
+        );
+
+        CREATE TABLE pantry(
+            id SERIAL PRIMARY KEY,
+            
+            "ingredientId" INTEGER references ingredients(id),
+            quantity INTEGER
+        );
+
         CREATE TABLE favorites (
             id SERIAL PRIMARY KEY,
+            status BOOLEAN DEFAULT false,
             "userId" INTEGER REFERENCES users(id),
             "recipeId" INTEGER REFERENCES recipes(id)
+           
         );
             `)
             //"recipeId" INTEGER references recipes(id) **for ingredients table
