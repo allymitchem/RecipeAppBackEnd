@@ -24,6 +24,11 @@ async function createUser({ username, password, email }) {
     }
 }
 
+ async function getAllUsers ({username, email}) {
+    
+
+ }
+
 module.exports = {
     createUser
 }

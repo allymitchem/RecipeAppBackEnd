@@ -79,7 +79,12 @@ async function createInitialUsers() {
         const Kaylan = await createUser({
             username: "Kaylan",
             password: "me123",
-            email: "me@gmail.com"
+            email: "kaylan@gmail.com"
+        })
+        const Allyson = await createUser({
+            username: "Allyson",
+            password: "allyson",
+            email: "allyson@gmail.com"
         })
         console.log("Finished creating initial user!")
     } catch (error) {
