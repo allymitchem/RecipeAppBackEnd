@@ -1,5 +1,6 @@
-const client = require("./client")
-const { createPantry, addIngredientToPantry, createUser } = require("./")
+const client = require('./client');
+const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser} = require('./');
+
 
 async function dropTables() {
     try {
@@ -9,6 +10,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS favorites;
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS pantry;
+        DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS users;
         `)
@@ -23,20 +25,9 @@ async function createTables() {
         console.log("Starting To Build Tables...")
 
         await client.query(`
-        CREATE TABLE ingredients(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            quantity VARCHAR(255) NOT NULL,
-            unit VARCHAR(255)
-            
-        );
+       
 
-        CREATE TABLE pantry(
-            id SERIAL PRIMARY KEY,
-            
-            "ingredientId" INTEGER references ingredients(id),
-            quantity INTEGER
-        );
+       
         
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -58,10 +49,27 @@ async function createTables() {
             notes TEXT
         );
 
+        CREATE TABLE ingredients(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            quantity VARCHAR(255) NOT NULL,
+            unit VARCHAR(255),
+            "recipeId" INTEGER references recipes(id)
+        );
+
+        CREATE TABLE pantry(
+            id SERIAL PRIMARY KEY,
+            
+            "ingredientId" INTEGER references ingredients(id),
+            quantity INTEGER
+        );
+
         CREATE TABLE favorites (
             id SERIAL PRIMARY KEY,
+            status BOOLEAN DEFAULT false,
             "userId" INTEGER REFERENCES users(id),
             "recipeId" INTEGER REFERENCES recipes(id)
+           
         );
             `)
         //"recipeId" INTEGER references recipes(id) **for ingredients table
