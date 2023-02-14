@@ -8,12 +8,14 @@ async function dropTables() {
 
         await client.query(`
         DROP TABLE IF EXISTS favorites;
-        DROP TABLE IF EXISTS recipes;
-        DROP TABLE IF EXISTS pantry;
-        DROP TABLE IF EXISTS users;
+        
+        DROP TABLE IF EXISTS recipe_ingredients;
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS users;
+       
         `)
+        // DROP TABLE IF EXISTS pantry;
         console.log("Finished Dropping All Tables...")
     } catch (error) {
         throw error
@@ -57,13 +59,14 @@ async function createTables() {
             "recipeId" INTEGER references recipes(id)
         );
 
-        CREATE TABLE pantry(
+        CREATE TABLE recipe_ingredients(
             id SERIAL PRIMARY KEY,
-            
-            "ingredientId" INTEGER references ingredients(id),
-            quantity INTEGER
+            "recipeId" INTEGER REFERENCES recipes(id),
+            "ingredientId" INTEGER REFERENCES ingredients(id)
         );
 
+
+       
         CREATE TABLE favorites (
             id SERIAL PRIMARY KEY,
             status BOOLEAN DEFAULT false,
@@ -72,6 +75,13 @@ async function createTables() {
            
         );
             `)
+            // CREATE TABLE pantry(
+            //     id SERIAL PRIMARY KEY,
+                
+            //     "ingredientId" INTEGER references ingredients(id),
+            //     quantity INTEGER
+            // );
+    
         //"recipeId" INTEGER references recipes(id) **for ingredients table
         //"userId" VARCHAR(255) references users(id) ** for pantry table
         console.log("Finished building tables!")
