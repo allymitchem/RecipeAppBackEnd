@@ -1,5 +1,5 @@
 const client = require('./client');
-const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser} = require('./');
+const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser, createRecipe} = require('./');
 
 
 async function dropTables() {
@@ -8,11 +8,11 @@ async function dropTables() {
 
         await client.query(`
         DROP TABLE IF EXISTS favorites;
-        DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS pantry;
-        DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS users;
+   
         `)
         console.log("Finished Dropping All Tables...")
     } catch (error) {
@@ -100,11 +100,18 @@ async function createInitialUsers() {
     }
 }
 
+async function createInitialRecipe () {
+    console.log("Starting to create recipes")
+
+    t
+}
+
 async function rebuildDB() {
     try {
         await dropTables()
         await createTables()
         await createInitialUsers()
+        await createInitialRecipe()
     } catch (error) {
         console.error(error)
         throw error
