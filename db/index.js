@@ -1,5 +1,6 @@
 module.exports = {
     ...require('./pantry'),
     ...require('./favorites'),
-    ...require('./users')
+    ...require('./users'),
+    ...require('./recipes')
 }
