@@ -103,7 +103,25 @@ async function createInitialUsers() {
 async function createInitialRecipe () {
     console.log("Starting to create recipes")
 
-    t
+    try {
+        const spaghetti = await createRecipe({
+            title: "Spaghetti",
+            servings: "4",
+            prepTime: "10 mins",
+            cookTime: "25 mins",
+            instructions: "Brown and drain a pound of hamburger meat or meat of your choice or protein substitute.  While protein is cooking, boil large pot of water, add salt to water to taste.  Once boiling, add pasta. Drain protein once cooked through if needed.  Add favorite jar of sauce to protein.  Simmer until warmed through.  Once pasta is al dente or to your liking, drain.  Mix pasta into sauce and protein mixture or top pasta with protein sauce mixture.  Add any toppings you like, i.e. cheese, nutritional yeast, basil, etc.",
+            mealType: "Dinner",
+            cuisine: "Italian",
+            createdBy: "Kaylan",
+            notes: "Lentils and walnuts are a good plant substitute"
+        });
+
+        console.log("Finished creating initial recipe!")
+        
+    } catch (error) {
+        console.error();
+        
+    }
 }
 
 async function rebuildDB() {
