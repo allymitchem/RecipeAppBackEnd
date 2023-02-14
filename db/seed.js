@@ -7,7 +7,7 @@ async function dropTables() {
         console.log("Dropping All Tables...")
 
         await client.query(`
-        DROP TABLE IF EXISTS favorites;        
+        DROP TABLE IF EXISTS favorites;    
         DROP TABLE IF EXISTS recipe_ingredients;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS recipes;
