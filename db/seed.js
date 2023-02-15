@@ -58,10 +58,7 @@ async function createTables() {
 
         CREATE TABLE ingredients(
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            quantity VARCHAR(255) NOT NULL,
-            unit VARCHAR(255),
-            "recipeId" INTEGER references recipes(id)
+            name VARCHAR(255) NOT NULL
         );
 
         CREATE TABLE recipe_ingredients(
