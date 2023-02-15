@@ -168,6 +168,34 @@ async function addToUserFavorites(){
     }
 }
 
+async function removeFromUserFavorites(){
+    try {
+        console.log("Starting to remove favorite...")
+           
+          //removeFavorite(userId, recipeId)
+           await removeFavorite(1,1)
+           
+           console.log(`Removed favorite for user...`)
+        
+    }catch (error){
+        console.log("Error removing from favorites...")
+    }
+}
+
+async function getUserFavorites(){
+    try{
+        console.log("Starting to retrieve user's favorites...")
+
+        //getFavorites(userId)
+        const userFavorites = await getFavorites(1)
+        console.log(userFavorites, "user's favorite's")
+        console.log("Retrieved user's favorites...")
+
+    }catch(error){
+        console.log("Error retrieving user's favorites...")
+    }
+}
+
 async function rebuildDB() {
     try {
         await dropTables()
@@ -175,6 +203,8 @@ async function rebuildDB() {
         await createInitialUsers()
         await createInitialRecipe()
         await addToUserFavorites()
+        await removeFromUserFavorites()
+        await getUserFavorites()
     } catch (error) {
         console.error(error)
         throw error

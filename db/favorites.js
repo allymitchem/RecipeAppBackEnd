@@ -33,8 +33,10 @@ async function addFavorite(userId, recipeId){
 async function removeFavorite(userId, recipeId){
     try{
         const {rows: [favorite]} = await client.query(`
-        INSERT INTO favorites("userId", "recipeId", status)
-        VALUES ($1, $2, false)
+        UPDATE favorites
+        SET status = false 
+        WHERE "userId" = $1
+        AND "recipeId" = $2
         RETURNING *
         ;`, [userId, recipeId])
         return favorite
