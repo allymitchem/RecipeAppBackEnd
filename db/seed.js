@@ -131,11 +131,40 @@ async function createInitialRecipe () {
             notes: "Lentils and walnuts are a good plant substitute"
         });
 
+        const shortbreadCookies = await createRecipe({
+            title: "Raspberry Almond Shortbread Cookies",
+            servings: "36",
+            prepTime: "30 mins",
+            cookTime: "30 mins",
+            instructions: "For the cookies: Preheat oven to 350°F (180°C). In a mixing bowl whisk together flour and salt, set aside. In the bowl of an electric stand mixer fitted with the paddle attachment, blend together butter and sugar until combined (it will take a minute or two since the butter is cold).Mix in almond extract then add in flour blend until mixture comes together (it will take a bit of mixing since the butter is cold, so be patient, it will seem really dry and crumbly at first).Shape dough into 1-inch balls, about 1 Tbsp each, and place 2-inches apart on ungreased baking sheets. Make a small indentation with thumb or forefinger in each cookie (large enough to fit 1/4 - 1/2 tsp of jam). Fill each with 1/4 - 1/2 tsp jam. Chill in refrigerator 20 minutes (or freezer for 10 minutes). Bake in preheated oven 14 - 18 minutes. Cool several minutes on baking sheet then transfer to a wire rack to cool. For the glaze: Whisk all glaze ingredients together in a small mixing bowl, adding enough water to reach desired consistency. Pour or spoon mixture into a sandwich size resealable bag, cut a small tip from one corner and drizzle over cool cookies. Let set at room temperature then store in an airtight container.",
+            mealType: "Dessert",
+            cuisine: "",
+            createdBy: "Allyson",
+            notes: "Be generous with the almond extract"
+        });
+
+
+
         console.log("Finished creating initial recipe!")
         
     } catch (error) {
         console.error();
         
+    }
+}
+
+async function addToUserFavorites(){
+    try {
+        console.log("Starting to add to favorites...")
+           
+          //addFavorite(userId, recipeId)
+           await addFavorite(1,1)
+           await addFavorite(1,2)
+           await addFavorite(2,2)
+           console.log(`Added favorite for user...`)
+        
+    }catch (error){
+        console.log("Error adding to favorites...")
     }
 }
 
@@ -145,6 +174,7 @@ async function rebuildDB() {
         await createTables()
         await createInitialUsers()
         await createInitialRecipe()
+        await addToUserFavorites()
     } catch (error) {
         console.error(error)
         throw error

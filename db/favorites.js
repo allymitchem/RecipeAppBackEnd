@@ -17,13 +17,13 @@ try {
     }
 }
 
-async function addFavorite(userId){
+async function addFavorite(userId, recipeId){
     try{
         const {rows: [favorite]} = await client.query(`
-        UPDATE favorites
-        SET status = true
-        WHERE "userId" =$1
-        ;`, [userId])
+        INSERT INTO favorites ("userId", "recipeId", status)
+        VALUES ($1, $2, true)
+        RETURNING *
+        ;`, [userId, recipeId])
         return favorite
     }catch(error){
         console.error(error)
