@@ -10,6 +10,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS favorites;    
         DROP TABLE IF EXISTS recipe_ingredients;
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS measurements;
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS users;
        
@@ -50,6 +51,11 @@ async function createTables() {
             notes TEXT
         );
 
+        CREATE TABLE measurements(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) UNIQUE NOT NULL
+        );
+
         CREATE TABLE ingredients(
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
@@ -61,7 +67,10 @@ async function createTables() {
         CREATE TABLE recipe_ingredients(
             id SERIAL PRIMARY KEY,
             "recipeId" INTEGER REFERENCES recipes(id),
-            "ingredientId" INTEGER REFERENCES ingredients(id)
+            "ingredientId" INTEGER REFERENCES ingredients(id),
+            amount VARCHAR(255),
+            "measurementId" INTEGER REFERENCES measurements(id)
+            
         );
 
 
