@@ -140,7 +140,7 @@ async function createInitialRecipe () {
             mealType: "Dessert",
             cuisine: "",
             createdBy: "Allyson",
-            notes: "Be generous with the almond extract"
+            notes: "Recipe adapted from Cooking Classy, Land O Lakes and Allrecipes.com "
         });
 
 
