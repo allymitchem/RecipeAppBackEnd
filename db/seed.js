@@ -1,5 +1,5 @@
 const client = require('./client');
-const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser, createRecipe, getAllIngredients, getIngredientById, getIngredientByName} = require('./');
+const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser, createRecipe, getAllIngredients, getIngredientById, getIngredientByName, createIngredient, addIngredientToRecipe} = require('./');
 
 
 async function dropTables() {
