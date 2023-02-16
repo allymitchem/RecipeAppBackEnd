@@ -24,6 +24,7 @@ async function createUser({ username, password, email }) {
     }
 }
 
+
 async function getAllUsers() {
     try {
         const { rows } = await client.query(`
@@ -36,7 +37,62 @@ async function getAllUsers() {
     }
 }
 
+async function updateUser({id, ...fields}) {
+    const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(', ');
+
+    try {
+        const {rows: [user]} = await client.query(`
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *        
+        `, Object.values(fields));
+        delete user.password
+        return user
+        
+    } catch (error) {
+        console.error();
+        
+    }
+
+}
+
+
+async function deleteUser() {
+
+}
+
+async function getUserByUsername() {
+
+}
+
+async function getUserById(userId) {
+    try {
+        const {rows: [user]} = await client.query(`
+        SELECT username, email
+        FROM users
+        WHERE id = $1`, [userId]);
+
+        if (!user) {
+            return null;
+        }
+
+        return user;
+        
+    } catch (error) {
+        console.error();
+        
+    }
+
+}
+
+
+
 module.exports = {
     createUser,
-    getAllUsers
+    getAllUsers,
+    updateUser,
+    deleteUser,
+    getUserByUsername,
+    getUserById
 }

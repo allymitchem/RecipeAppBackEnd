@@ -12,7 +12,9 @@ const {
     getIngredientByName,
     createIngredient,
     addIngredientToRecipe,
-    getAllUsers
+    getAllUsers,
+    updateUser,
+    getUserById
 } = require("./")
 
 async function dropTables() {
@@ -222,9 +224,21 @@ async function rebuildDB() {
 async function testDB() {
     console.log("Starting to test database...")
 
+    const userCreated = await createUser({
+        username: "Feyre",
+        password: "iloverhys",
+        email: "highlady@gmail.com"});
+    console.log("User Created", userCreated);
+
+    
     const allUsers = await getAllUsers()
     console.log("All Users", allUsers);
 
+    const userById = await getUserById (1)
+    console.log("A user retrieved by Id", userById);
+    
+    const updatedUser = await updateUser({id: 3, email: "highladyofthenightcourt@gmail.com"})
+    console.log("Updated User", updatedUser);
 
     console.log("Finished testing database....")
 }
