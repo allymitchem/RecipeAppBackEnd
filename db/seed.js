@@ -14,7 +14,8 @@ const {
     addIngredientToRecipe,
     getAllUsers,
     updateUser,
-    getUserById
+    getUserById,
+    getUserByUsername
 } = require("./")
 
 async function dropTables() {
@@ -239,6 +240,9 @@ async function testDB() {
     
     const updatedUser = await updateUser({id: 3, email: "highladyofthenightcourt@gmail.com"})
     console.log("Updated User", updatedUser);
+
+    const userByUsername = await getUserByUsername("Kaylan")
+    console.log("Retrieved user by username", userByUsername);
 
     console.log("Finished testing database....")
 }
