@@ -15,7 +15,8 @@ const {
     getAllUsers,
     updateUser,
     getUserById,
-    getUserByUsername
+    getUserByUsername,
+    deleteUser
 } = require("./")
 
 async function dropTables() {
@@ -243,6 +244,9 @@ async function testDB() {
 
     const userByUsername = await getUserByUsername("Kaylan")
     console.log("Retrieved user by username", userByUsername);
+
+    const deletedUser = await deleteUser(3)
+    console.log("Deleted a user", deletedUser);
 
     console.log("Finished testing database....")
 }

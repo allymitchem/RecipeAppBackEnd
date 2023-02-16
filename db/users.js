@@ -60,7 +60,19 @@ async function updateUser({ id, ...fields }) {
     }
 }
 
-async function deleteUser() {}
+async function deleteUser(userId) {
+    try {
+        const {rows: [user]} = await client.query(`
+        DELETE FROM users
+        WHERE id = $1
+        RETURNING username, email`, [userId]);
+
+        return user
+    } catch (error) {
+        console.error();
+        
+    }
+}
 
 async function getUserByUsername(username) {
     try {
