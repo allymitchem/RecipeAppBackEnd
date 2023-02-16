@@ -24,11 +24,109 @@ async function createUser({ username, password, email }) {
     }
 }
 
- async function getAllUsers ({username, email}) {
+async function getAllUsers() {
+    try {
+        const { rows } = await client.query(`
+        SELECT username, email
+        FROM users;        
+        `)
+        return rows
+    } catch (error) {
+        console.error()
+    }
+}
 
+async function updateUser({ id, ...fields }) {
+    const setString = Object.keys(fields)
+        .map((key, index) => `"${key}"=$${index + 1}`)
+        .join(", ")
 
- }
+    try {
+        const {
+            rows: [user]
+        } = await client.query(
+            `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *        
+        `,
+            Object.values(fields)
+        )
+        delete user.password
+        return user
+    } catch (error) {
+        console.error()
+    }
+}
+
+async function deleteUser(userId) {
+    try {
+        const {
+            rows: [user]
+        } = await client.query(
+            `
+        DELETE FROM users
+        WHERE id = $1
+        RETURNING username, email`,
+            [userId]
+        )
+
+        return user
+    } catch (error) {
+        console.error()
+    }
+}
+
+async function getUserByUsername(username) {
+    try {
+        const {
+            rows: [user]
+        } = await client.query(
+            `
+        SELECT username, email
+        FROM users
+        WHERE username = $1`,
+            [username]
+        )
+
+        if (!user) {
+            return null
+        }
+
+        return user
+    } catch (error) {
+        console.error()
+    }
+}
+
+async function getUserById(userId) {
+    try {
+        const {
+            rows: [user]
+        } = await client.query(
+            `
+        SELECT username, email
+        FROM users
+        WHERE id = $1`,
+            [userId]
+        )
+
+        if (!user) {
+            return null
+        }
+
+        return user
+    } catch (error) {
+        console.error()
+    }
+}
 
 module.exports = {
-    createUser
+    createUser,
+    getAllUsers,
+    updateUser,
+    deleteUser,
+    getUserByUsername,
+    getUserById
 }
