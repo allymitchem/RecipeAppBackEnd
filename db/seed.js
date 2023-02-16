@@ -229,24 +229,24 @@ async function testDB() {
     const userCreated = await createUser({
         username: "Feyre",
         password: "iloverhys",
-        email: "highlady@gmail.com"});
-    console.log("User Created", userCreated);
+        email: "highlady@gmail.com"
+    })
+    console.log("User Created", userCreated)
 
-    
     const allUsers = await getAllUsers()
-    console.log("All Users", allUsers);
+    console.log("All Users", allUsers)
 
-    const userById = await getUserById (1)
-    console.log("A user retrieved by Id", userById);
-    
-    const updatedUser = await updateUser({id: 3, email: "highladyofthenightcourt@gmail.com"})
-    console.log("Updated User", updatedUser);
+    const userById = await getUserById(1)
+    console.log("A user retrieved by Id", userById)
+
+    const updatedUser = await updateUser({ id: 3, email: "highladyofthenightcourt@gmail.com" })
+    console.log("Updated User", updatedUser)
 
     const userByUsername = await getUserByUsername("Kaylan")
-    console.log("Retrieved user by username", userByUsername);
+    console.log("Retrieved user by username", userByUsername)
 
     const deletedUser = await deleteUser(3)
-    console.log("Deleted a user", deletedUser);
+    console.log("Deleted a user", deletedUser)
 
     console.log("Finished testing database....")
 }
