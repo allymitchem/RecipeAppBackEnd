@@ -1,6 +1,19 @@
-const client = require('./client');
-const {createPantry,addIngredientToPantry, getFavorites, addFavorite, removeFavorite, createUser, createRecipe, getAllIngredients, getIngredientById, getIngredientByName, createIngredient, addIngredientToRecipe} = require('./');
-
+const client = require("./client")
+const {
+    createPantry,
+    addIngredientToPantry,
+    getFavorites,
+    addFavorite,
+    removeFavorite,
+    createUser,
+    createRecipe,
+    getAllIngredients,
+    getIngredientById,
+    getIngredientByName,
+    createIngredient,
+    addIngredientToRecipe,
+    getAllUsers
+} = require("./")
 
 async function dropTables() {
     try {
@@ -80,13 +93,13 @@ async function createTables() {
            
         );
             `)
-            // CREATE TABLE pantry(
-            //     id SERIAL PRIMARY KEY,
-                
-            //     "ingredientId" INTEGER references ingredients(id),
-            //     quantity INTEGER
-            // );
-    
+        // CREATE TABLE pantry(
+        //     id SERIAL PRIMARY KEY,
+
+        //     "ingredientId" INTEGER references ingredients(id),
+        //     quantity INTEGER
+        // );
+
         //"recipeId" INTEGER references recipes(id) **for ingredients table
         //"userId" VARCHAR(255) references users(id) ** for pantry table
         console.log("Finished building tables!")
@@ -115,7 +128,7 @@ async function createInitialUsers() {
     }
 }
 
-async function createInitialRecipe () {
+async function createInitialRecipe() {
     console.log("Starting to create recipes")
 
     try {
@@ -124,74 +137,69 @@ async function createInitialRecipe () {
             servings: "4",
             prepTime: "10 mins",
             cookTime: "25 mins",
-            instructions: "Brown and drain a pound of hamburger meat or meat of your choice or protein substitute.  While protein is cooking, boil large pot of water, add salt to water to taste.  Once boiling, add pasta. Drain protein once cooked through if needed.  Add favorite jar of sauce to protein.  Simmer until warmed through.  Once pasta is al dente or to your liking, drain.  Mix pasta into sauce and protein mixture or top pasta with protein sauce mixture.  Add any toppings you like, i.e. cheese, nutritional yeast, basil, etc.",
+            instructions:
+                "Brown and drain a pound of hamburger meat or meat of your choice or protein substitute.  While protein is cooking, boil large pot of water, add salt to water to taste.  Once boiling, add pasta. Drain protein once cooked through if needed.  Add favorite jar of sauce to protein.  Simmer until warmed through.  Once pasta is al dente or to your liking, drain.  Mix pasta into sauce and protein mixture or top pasta with protein sauce mixture.  Add any toppings you like, i.e. cheese, nutritional yeast, basil, etc.",
             mealType: "Dinner",
             cuisine: "Italian",
             createdBy: "Kaylan",
             notes: "Lentils and walnuts are a good plant substitute"
-        });
+        })
 
         const shortbreadCookies = await createRecipe({
             title: "Raspberry Almond Shortbread Cookies",
             servings: "36",
             prepTime: "30 mins",
             cookTime: "30 mins",
-            instructions: "For the cookies: Preheat oven to 350°F (180°C). In a mixing bowl whisk together flour and salt, set aside. In the bowl of an electric stand mixer fitted with the paddle attachment, blend together butter and sugar until combined (it will take a minute or two since the butter is cold).Mix in almond extract then add in flour blend until mixture comes together (it will take a bit of mixing since the butter is cold, so be patient, it will seem really dry and crumbly at first).Shape dough into 1-inch balls, about 1 Tbsp each, and place 2-inches apart on ungreased baking sheets. Make a small indentation with thumb or forefinger in each cookie (large enough to fit 1/4 - 1/2 tsp of jam). Fill each with 1/4 - 1/2 tsp jam. Chill in refrigerator 20 minutes (or freezer for 10 minutes). Bake in preheated oven 14 - 18 minutes. Cool several minutes on baking sheet then transfer to a wire rack to cool. For the glaze: Whisk all glaze ingredients together in a small mixing bowl, adding enough water to reach desired consistency. Pour or spoon mixture into a sandwich size resealable bag, cut a small tip from one corner and drizzle over cool cookies. Let set at room temperature then store in an airtight container.",
+            instructions:
+                "For the cookies: Preheat oven to 350°F (180°C). In a mixing bowl whisk together flour and salt, set aside. In the bowl of an electric stand mixer fitted with the paddle attachment, blend together butter and sugar until combined (it will take a minute or two since the butter is cold).Mix in almond extract then add in flour blend until mixture comes together (it will take a bit of mixing since the butter is cold, so be patient, it will seem really dry and crumbly at first).Shape dough into 1-inch balls, about 1 Tbsp each, and place 2-inches apart on ungreased baking sheets. Make a small indentation with thumb or forefinger in each cookie (large enough to fit 1/4 - 1/2 tsp of jam). Fill each with 1/4 - 1/2 tsp jam. Chill in refrigerator 20 minutes (or freezer for 10 minutes). Bake in preheated oven 14 - 18 minutes. Cool several minutes on baking sheet then transfer to a wire rack to cool. For the glaze: Whisk all glaze ingredients together in a small mixing bowl, adding enough water to reach desired consistency. Pour or spoon mixture into a sandwich size resealable bag, cut a small tip from one corner and drizzle over cool cookies. Let set at room temperature then store in an airtight container.",
             mealType: "Dessert",
             cuisine: "",
             createdBy: "Allyson",
-            notes: "Recipe adapted from Cooking Classy, Land O Lakes and Allrecipes.com "
-        });
-
-
+            notes: "Recipe adapted from Cooking Classy, Land O Lakes and Allrecipes.com"
+        })
 
         console.log("Finished creating initial recipe!")
-        
     } catch (error) {
-        console.error();
-        
+        console.error()
     }
 }
 
-async function addToUserFavorites(){
+async function addToUserFavorites() {
     try {
         console.log("Starting to add to favorites...")
-           
-          //addFavorite(userId, recipeId)
-           await addFavorite(1,1)
-           await addFavorite(1,2)
-           await addFavorite(2,2)
-           console.log(`Added favorite for user...`)
-        
-    }catch (error){
+
+        //addFavorite(userId, recipeId)
+        await addFavorite(1, 1)
+        await addFavorite(1, 2)
+        await addFavorite(2, 2)
+        console.log(`Added favorite for user...`)
+    } catch (error) {
         console.log("Error adding to favorites...")
     }
 }
 
-async function removeFromUserFavorites(){
+async function removeFromUserFavorites() {
     try {
         console.log("Starting to remove favorite...")
-           
-          //removeFavorite(userId, recipeId)
-           await removeFavorite(1,1)
-           
-           console.log(`Removed favorite for user...`)
-        
-    }catch (error){
+
+        //removeFavorite(userId, recipeId)
+        await removeFavorite(1, 1)
+
+        console.log(`Removed favorite for user...`)
+    } catch (error) {
         console.log("Error removing from favorites...")
     }
 }
 
-async function getUserFavorites(){
-    try{
+async function getUserFavorites() {
+    try {
         console.log("Starting to retrieve user's favorites...")
 
         //getFavorites(userId)
         const userFavorites = await getFavorites(1)
         console.log(userFavorites, "user's favorite's")
         console.log("Retrieved user's favorites...")
-
-    }catch(error){
+    } catch (error) {
         console.log("Error retrieving user's favorites...")
     }
 }
@@ -211,7 +219,15 @@ async function rebuildDB() {
     }
 }
 
-async function testDB() {}
+async function testDB() {
+    console.log("Starting to test database...")
+
+    const allUsers = await getAllUsers()
+    console.log("All Users", allUsers);
+
+
+    console.log("Finished testing database....")
+}
 
 rebuildDB()
     .then(testDB)
