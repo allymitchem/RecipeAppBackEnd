@@ -9,6 +9,7 @@ try {
     `, [title, servings, prepTime, cookTime, instructions, mealType, cuisine, createdBy, notes]);
 
     console.log(recipe, "console of new recipe created!!!!!!");
+    return recipe;
     
 } catch (error) {
     console.error();   

@@ -243,6 +243,8 @@ async function testDB() {
     const deletedUser = await deleteUser(3)
     console.log("Deleted a user", deletedUser)
 
+
+// need to figure out why it is returning newRecipe as undefined but adds to database correctly
     const newRecipe = await createRecipe({
         title: "Chicken Quesadillas",
         servings: "1",
