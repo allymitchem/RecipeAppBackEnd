@@ -43,10 +43,7 @@ async function createTables() {
     try {
         console.log("Starting To Build Tables...")
 
-        await client.query(`
-       
-
-       
+        await client.query(`      
         
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
@@ -86,8 +83,6 @@ async function createTables() {
             "measurementId" INTEGER REFERENCES measurements(id)
             
         );
-
-
        
         CREATE TABLE favorites (
             id SERIAL PRIMARY KEY,
@@ -248,7 +243,23 @@ async function testDB() {
     const deletedUser = await deleteUser(3)
     console.log("Deleted a user", deletedUser)
 
+    const newRecipe = await createRecipe({
+        title: "Chicken Quesadillas",
+        servings: "1",
+        prepTime: "5 mins",
+        cookTime: "10 mins",
+        instructions:
+            "Butter a hot skillet.  Place flour tortilla in skillet.  On the side facing up, spread sour cream and sprinkle with cheese.  Add shredded chicken.  Fold in half.  Flip tortilla over until desired brownness and cheese is melted.",
+        mealType: "Dinner",
+        cuisine: "Mexican",
+        createdBy: "Kaylan",
+        notes: "Add any other ingredients you like, i.e. salsa, cilantro, jalapenos."
+    });
+    console.log("Created a new recipe", newRecipe);
+
     console.log("Finished testing database....")
+
+
 }
 
 rebuildDB()

@@ -6,11 +6,12 @@ try {
     const {rows: [recipe]} = await client.query(`
     INSERT INTO recipes(title, servings, "prepTime", "cookTime", instructions, "mealType", cuisine, "createdBy", notes)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `, [title, servings, prepTime, cookTime, instructions, mealType, cuisine, createdBy, notes])
+    `, [title, servings, prepTime, cookTime, instructions, mealType, cuisine, createdBy, notes]);
+
+    console.log(recipe, "console of new recipe created!!!!!!");
     
 } catch (error) {
-    console.error();
-    
+    console.error();   
 }
 
 }
